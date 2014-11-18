@@ -1,9 +1,4 @@
 #import <cycript.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <dlfcn.h>
-#include <unistd.h>
 #include <objc/runtime.h>
 
 extern "C" void CydgetSetupContext(JSGlobalContextRef);
@@ -21,12 +16,14 @@ extern "C" char ***_NSGetArgv(void);
 static __attribute__((constructor)) void __cycript_loader_init()
 {
 	NSArray *rawFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:SCRIPT_PATH error:nil];
-	NSArray *scripts = [rawFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.cy' OR self ENDSWITH '.js'"]];
+	NSMutableArray *scripts = [[rawFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.cy' OR self ENDSWITH '.js'"]] mutableCopy];
+	[scripts removeObject:@"__core.cy"];
+	[scripts insertObject:@"__core.cy" atIndex:0];
 
 	JSGlobalContextRef context = JSGlobalContextCreate(NULL);
 	CydgetSetupContext(context);
 
-	for (NSString *fileName in scripts)
+	for (NSString *fileName in scripts) 
 	{
 		CLLog(@"Loading %@", fileName);
 		NSError *error;
