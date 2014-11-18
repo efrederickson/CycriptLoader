@@ -1,0 +1,9 @@
+Package: com.efrederickson.cycriptloader
+Name: CycriptLoader
+Depends: mobilesubstrate, cycript
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: Load Cycript/JavaScript into processes
+Maintainer: Elijah Frederickson
+Author: Elijah Frederickson
+Section: Tweaks
