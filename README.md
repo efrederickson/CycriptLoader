@@ -1,4 +1,4 @@
-"Framework" for loading cycript/javascript into processes. 
+"Framework" for loading cycript/javascript into processes. Compatible with iOS 7
 
 Has full capabilities of cycript. 
 
@@ -24,3 +24,4 @@ TODO:
 - easier hooking methods (%hook-syntax extension?)
 - easier function wrapping
 - ? load Lua (using LuaJit/LibFFI)
+- iOS 8 compatibility (it seems the native JS library isn't loading..?)
